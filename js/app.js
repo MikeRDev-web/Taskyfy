@@ -67,6 +67,9 @@ function createNewTask(container) {
 
 function saveTask(name, description, list) {
     let storedTasks = JSON.parse(localStorage.getItem('taskList'));
+    if (storedTasks === null) {
+        storedTasks = [];
+    }
     const validateTask = storedTasks.find(element => element.taskName === name);
     if(validateTask) {
         alert('Ya existe una tarea con ese nombre');
@@ -74,9 +77,6 @@ function saveTask(name, description, list) {
         if(name.trim() === '') {
             alerts('warning', 'Por favor, agrega un nombre a tu tarea para continuar.')
         } else {
-            if (!Array.isArray(storedTasks)) {
-                storedTasks = [];
-            }
             const newTask = {
                 taskName: name,
                 taskDescription: description,
